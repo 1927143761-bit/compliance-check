@@ -1,2 +1,41 @@
 # compliance-check
 A simple compliance check webpage
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compliance Check</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        input, button { padding: 8px; margin: 5px; }
+        .result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Transaction Compliance Checker</h2>
+    <p>Enter transactions separated by commas (e.g., 500,15000,2500):</p>
+    <input type="text" id="transactions" placeholder="Enter amounts">
+    <button onclick="checkCompliance()">Check</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function checkCompliance() {
+            const limit = 10000;
+            const input = document.getElementById('transactions').value;
+            const amounts = input.split(',').map(Number);
+            let output = '';
+
+            amounts.forEach((amount, index) => {
+                if (amount > limit) {
+                    output += `Transaction ${index + 1} of $${amount} exceeds compliance limit!<br>`;
+                } else {
+                    output += `Transaction ${index + 1} of $${amount} is compliant.<br>`;
+                }
+            });
+
+            document.getElementById('result').innerHTML = output;
+        }
+    </script>
+</body>
+</html>
